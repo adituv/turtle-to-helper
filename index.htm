@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Turtle to Hunt Helper Converetr</title>
+    <title>Turtle to Hunt Helper Converter</title>
 
     <style>
         body {
@@ -38,7 +37,7 @@
 <body>
     <h1>Turtle to Hunt Helper Converter</h1>
 
-    <p><i>Note: only works for Dawntrail currently</i></p>
+    <p><i>Note: this tool is only tested on Dawntrail marks so far</i></p>
 
     <h3>Input</h3>
     <textarea id="input" placeholder="Paste export here..."></textarea>
@@ -46,7 +45,7 @@
     <br>
     <button onclick="processInput()">Convert</button>
 
-    <h3>Output (Base64)</h3>
+    <h3>Output</h3>
     <textarea id="output" readonly></textarea>
 
     <br>
@@ -54,6 +53,82 @@
 
     <script>
         const mobNames = {
+            // ARR
+            "forneus": "Forneus",
+            "melt": "Melt",
+            "ghede ti malice": "Ghede Ti Malice",
+            "girtab": "Girtab",
+            "alectryon": "Alectryon",
+            "sabotender bailarina": "Sabotender Bailarina",
+            "maahes": "Maahes",
+            "zanig'oh": "Zanig'oh",
+            "dalvag's final flame": "Dalvag's Final Flame", 
+            "vogaal ja": "Vogaal Ja",
+            "unktehi": "Unktehi",
+            "hellsclaw": "Hellsclaw",
+            "nahn": "Nahn",
+            "marberry": "Marberry",
+            "cornu": "Cornu",
+            "marraco": "Marraco",
+            "kurrea": "Kurrea",
+
+            // Heavensward
+            "mirka": "Mirka",
+            "lyuba": "Lyuba",
+            "pylraster": "Pylraster",
+            "lord of the wyverns": "Lord of the Wyverns",
+            "slipkinx steeljoints": "Slipkinx Steeljoints",
+            "stolas": "Stolas",
+            "bune": "Bune",
+            "agathos": "Agathos",
+            "enkelados": "Enkelados",
+            "sisiutl": "Sisiutl",
+            "campacti": "Campacti",
+            "stench blossom": "Stench Blossom",
+
+            // Stormblood
+            "orcus": "Orcus",
+            "erle": "Erle",
+            "vochstein": "Vochstein",
+            "aqrabuamelu": "Aqrabuamelu",
+            "mahisha": "Mahisha",
+            "luminare": "Luminare",
+            "funa yurei": "Funa Yurei",
+            "oni yumemi": "Oni Yumemi",
+            "gajasura": "Gajasura",
+            "angada": "Angada",
+            "girimekhala": "Girimekhala",
+            "sum": "Sum",
+
+            // Shadowbringers
+            "the mudman": "The Mudman",
+            "o poorest pauldia": "O Poorest Pauldia",
+            "supay": "Supay",
+            "grassman": "Grassman",
+            "rusalka": "Rusalka",
+            "baal": "Baal",
+            "maliktender": "Maliktender",
+            "sugaar": "Sugaar",
+            "nuckelavee": "Nuckelavee",
+            "nariphon": "Nariphon",
+            "li'l murderer": "Li'l Murderer",
+            "huracan": "Huracan",
+
+            // Endwalker
+            "storsie": "Storsie",
+            "hulder": "Hulder",
+            "yilan": "Yilan",
+            "sugriva": "Sugriva",
+            "minerva": "Minerva",
+            "aegeiros": "Aegeiros",
+            "lunatender queen": "Lunatender Queen",
+            "mousse princess": "Mousse Princess",
+            "gurangatch": "Gurangatch",
+            "petalodus": "Petalodus",
+            "fan ail": "Fan Ail",
+            "arch-eta": "Arch-Eta",
+
+            // Dawntrail
             "queen hawk": "Queen Hawk",
             "nechuciho": "Nechuciho",
             "the raintriller": "The Raintriller",
@@ -69,6 +144,82 @@
         };
 
         const mobIds = {
+            // ARR
+            "forneus": 2936,
+            "melt": 2937,
+            "ghede ti malice": 2938,
+            "girtab": 2939,
+            "alectryon": 2940,
+            "sabotender bailarina": 2941,
+            "maahes": 2942,
+            "zanig'oh": 2943,
+            "dalvag's final flame": 2944,
+            "vogaal ja": 2945,
+            "unktehi": 2946,
+            "hellsclaw": 2947,
+            "nahn": 2948,
+            "marberry": 2949,
+            "cornu": 2950,
+            "marraco": 2951,
+            "kurrea": 2952,
+
+            // Heavensward
+            "mirka": 4362,
+            "lyuba": 4363,
+            "pylraster": 4364,
+            "lord of the wyverns": 4365,
+            "slipkinx steeljoints": 4366,
+            "stolas": 4367,
+            "bune": 4368,
+            "agathos": 4369,
+            "enkelados": 4370,
+            "sisiutl": 4371,
+            "campacti": 4372,
+            "stench blossom": 4373,
+
+            // Stormblood
+            "orcus": 5990,
+            "erle": 5991,
+            "vochstein": 5992,
+            "aqrabuamelu": 5993,
+            "mahisha": 5994,
+            "luminare": 5995,
+            "funa yurei": 5996,
+            "oni yumemi": 5997,
+            "gajasura": 5998,
+            "angada": 5999,
+            "girimekhala": 6000,
+            "sum": 6001,
+
+            // Shadowbringers
+            "the mudman": 8654,
+            "o poorest pauldia": 8655,
+            "supay": 8891,
+            "grassman": 8892,
+            "rusalka": 8896,
+            "baal": 8897,
+            "maliktender": 8901,
+            "sugaar": 8902,
+            "nuckelavee": 8906,
+            "nariphon": 8907,
+            "li'l murderer": 8911,
+            "huracan": 8912,
+
+            // Endwalker
+            "storsie": 10623,
+            "hulder": 10624,
+            "yilan": 10625,
+            "sugriva": 10626,
+            "minerva": 10627,
+            "aegeiros": 10628,
+            "lunatender queen": 10629,
+            "mousse princess": 10630,
+            "gurangatch": 10631,
+            "petalodus": 10632,
+            "fan ail": 10633,
+            "arch-eta": 10634,
+
+            // Dawntrail
             "queen hawk": 13361,
             "nechuciho": 13362,
             "the raintriller": 13442,
@@ -84,6 +235,61 @@
         };
 
         const territoryIds = {
+            // ARR
+            "middle la noscea": 134,
+            "lower la noscea": 135,
+            "eastern la noscea": 137,
+            "western la noscea": 138,
+            "upper la noscea": 139,
+            "outer la noscea": 180,
+
+            "western thanalan": 140,
+            "central thanalan": 141,
+            "eastern thanalan": 145,
+            "southern thanalan": 146,
+            "northern thanalan": 147,
+
+            "central shroud": 148,
+            "east shroud": 152,
+            "south shroud": 153,
+            "north shroud": 154,
+
+            "coerthas central highlands": 155,
+            "mor dhona": 156,
+
+            // Heavensward
+            "coerthas western highlands": 397,
+            "the dravanian forelands": 398,
+            "the dravanian hinterlands": 399,
+            "the churning mists": 400,
+            "the sea of clouds": 401,
+            "azys lla": 402,
+
+            // Stormblood
+            "the fringes": 612,
+            "the ruby sea": 613,
+            "yanxia": 614,
+            "the peaks": 620,
+            "the lochs": 621,
+            "the azim steppe": 622,
+
+            // Shadowbringers
+            "lakeland": 813,
+            "kholusia": 814,
+            "amh araeng": 815,
+            "il mheg": 816,
+            "the rak'tika greatwood": 817,
+            "the tempest": 818,
+
+            // Endwalker
+            "labyrinthos": 956,
+            "thavnair": 957,
+            "garlemald": 958,
+            "mare lamentorum": 959,
+            "ultima thule": 960,
+            "elpis": 961,
+
+            // Dawntrail
             "urqopacha": 1187,
             "kozama'uka": 1188,
             "yak t'el": 1189,
@@ -93,6 +299,61 @@
         };
 
         const mapIds = {
+            // ARR
+            "middle la noscea": 15,
+            "lower la noscea": 16,
+            "eastern la noscea": 17,
+            "western la noscea": 18,
+            "upper la noscea": 19,
+            "outer la noscea": 30,
+
+            "western thanalan": 20,
+            "central thanalan": 21,
+            "eastern thanalan": 22,
+            "southern thanalan": 23,
+            "northern thanalan": 24,
+
+            "central shroud": 4,
+            "east shroud": 5,
+            "south shroud": 6,
+            "north shroud": 7,
+
+            "coerthas central highlands": 53,
+            "mor dhona": 25,
+
+            // Heavensward
+            "coerthas western highlands": 211,
+            "the dravanian forelands": 212,
+            "the dravanian hinterlands": 213,
+            "the churning mists": 214,
+            "the sea of clouds": 215,
+            "azys lla": 216,
+
+            // Stormblood
+            "the fringes": 367,
+            "the ruby sea": 371,
+            "yanxia": 354,
+            "the peaks": 368,
+            "the lochs": 369,
+            "the azim steppe": 372,
+
+            // Shadowbringers
+            "lakeland": 491,
+            "kholusia": 492,
+            "amh araeng": 493,
+            "il mheg": 494,
+            "the rak'tika greatwood": 495,
+            "the tempest": 496,
+
+            // Endwalker
+            "labyrinthos": 695,
+            "thavnair": 696,
+            "garlemald": 697,
+            "mare lamentorum": 698,
+            "ultima thule": 699,
+            "elpis": 700,
+
+            // Dawntrail
             "urqopacha": 857,
             "kozama'uka": 858,
             "yak t'el": 859,
@@ -105,7 +366,13 @@
             const lines = input.split("\n");
 
             let result = [];
-            const re = /^([A-Za-z ']+) @ \ue0bb([A-Za-z ']+)([\ue0b1-\ue0b8])? \( (\d+\.\d) , (\d+\.\d) \)(?: Instance [A-Z]+)?$/u;
+
+            // Regex parts, and assumptions made:
+            //   NAME: [\-A-Za-z '].  Alphabetical, space, hyphen, and apostrophe
+            //   MAP: [A-Za-z '].  Alphabetical, space, apostrophe
+            //   INSTANCE: [\ue0b1-\ue0b8].  FFXIV special characters for instance numbers
+            //   COORDS: (\d+\.\d).  Numbers with exactly one decimal place
+            const re = /^([\-A-Za-z ']+) @ \ue0bb([A-Za-z ']+)([\ue0b1-\ue0b8])? \( (\d+\.\d) , (\d+\.\d) \)(?: Instance [A-Z]+)?$/u;
             for (const line of lines) {
                 const match = re.exec(line);
                 
@@ -129,15 +396,8 @@
             return result;
         }
 
-        /*
-        {"Name":"Yehehetoaua'pyo",
-        "MobID":13400,
-        "MapName":"Shaaloani",
-        "LastSeenUTC":"2026-11-11T22:40:12.642514Z",
-        "Position":{"X":9.044011,"Y":16.1874},
-        "Dead":false,"TerritoryID":1190,"MapID":860,"Instance":0},
-        */
-    
+        // Tidies the data from Turtle (inconsistent capitalization), and adds the extra
+        // fields in the json imported by the Hunt Helper plugin
         function toHuntHelper(entries /* array of object */) {
             // Add 4 more digits of "precision" for compatibility with plugin
             const now = new Date().toISOString().replace("Z", "0000Z");
